@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from models.user import User
-from services.db_service import create_user, get_user
+from services.db_services import create_user, get_user
 
 router = APIRouter(prefix="/user")
 
