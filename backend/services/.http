@@ -1,0 +1,20 @@
+POST http://localhost:8000/users/
+Content-Type: application/json
+ 
+{
+    "id": "testuser10",
+    "name": "Hansraj Hathi",
+    "age": 40,
+    "weight": 200,
+    "height": 170,
+    "goal": "Lose weight and build muscle",
+    "activity_level": "Moderate",
+    "diet_preference": "Vegetarian"
+}
+
+###
+
+GET http://localhost:8000/users/testuser10/
+
+###
+GET http://localhost:8000/plan/testuser9

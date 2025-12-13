@@ -1,3 +1,4 @@
+# jus a placeholder will be taken care with next version
 from pydantic import BaseModel
 
 class DailyLog(BaseModel):

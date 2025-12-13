@@ -12,6 +12,7 @@ def generate_fitness_plan(user):
     You are an expert fitness and nutrition coach.
     Create a detailed 7-day plan based on this profile:
 
+    Name: {user['name']}
     Age: {user['age']}
     Weight: {user['weight']}
     Height: {user['height']}
@@ -28,7 +29,17 @@ def generate_fitness_plan(user):
     response = client.chat.completions.create(
         model=settings.AZURE_OPENAI_MODEL,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=1200
+        max_tokens=1200,
+        temperature=0.7,
+        top_p=0.9
     )
 
-    return response.choices[0].message["content"]
+    choice = response.choices[0]
+    msg = getattr(choice, "message", None) or (choice.get("message") if isinstance(choice, dict) else None)
+    if hasattr(msg, "content"):
+        return msg.content
+    if isinstance(msg, dict):
+        return msg.get("content")
+    # Fallback: try common properties
+    return getattr(choice, "text", None) or str(choice)
+    #return response.choices[0].message["content"]
