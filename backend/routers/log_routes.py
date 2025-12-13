@@ -1,7 +1,7 @@
 #just a placeholder; will be taken care with next release
 from fastapi import APIRouter
-from models.logs import DailyLog
-from services.db_service import add_log, get_logs
+from models.log import DailyLog
+from services.db_services import add_log, get_logs
 
 router = APIRouter(prefix="/logs")
 

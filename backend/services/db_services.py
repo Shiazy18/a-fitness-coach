@@ -12,11 +12,11 @@ user_container = database.create_container_if_not_exists(
     partition_key=PartitionKey(path="/id")
 )
 
-# log_container = database.create_container_if_not_exists(
-#     id=settings.COSMOS_LOGS_CONTAINER,
-#     #partition_key={"/user_id"}
-#     partition_key=PartitionKey(path="/user_id")
-# )
+log_container = database.create_container_if_not_exists(
+    id=settings.COSMOS_LOGS_CONTAINER,
+    #partition_key={"/user_id"}
+    partition_key=PartitionKey(path="/user_id")
+)
 
 
 # --- User CRUD ---

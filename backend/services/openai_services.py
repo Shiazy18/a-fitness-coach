@@ -10,9 +10,9 @@ client = AzureOpenAI(
 def generate_fitness_plan(user):
     prompt = f"""
     You are an expert fitness and nutrition coach.
-    Create a detailed 7-day plan based on this profile:
+    Create a detailed 7-day plan based on this profile in STRICT JSON FORMAT.:
 
-    Name: {user['name']}
+    User Profile:
     Age: {user['age']}
     Weight: {user['weight']}
     Height: {user['height']}
@@ -20,16 +20,28 @@ def generate_fitness_plan(user):
     Activity Level: {user['activity_level']}
     Diet Preference: {user['diet_preference']}
 
-    Include:
-    - Daily workouts (sets + reps)
-    - Meal plan with calories/macros
-    - Tips & motivation
+    JSON FORMAT (DO NOT ADD EXTRA TEXT):
+
+    {{
+      "workout": {{
+        "type": "",
+        "exercises": [
+          {{ "name": "", "sets": 0, "reps": 0 }}
+        ],
+        "calories_burned": 0
+      }},
+      "diet": {{
+        "meals": [
+          {{ "meal": "", "items": [""], "calories": 0 }}
+        ],
+        "total_calories": 0
+      }}
+    }}
     """
 
     response = client.chat.completions.create(
         model=settings.AZURE_OPENAI_MODEL,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=1200,
         temperature=0.7,
         top_p=0.9
     )
